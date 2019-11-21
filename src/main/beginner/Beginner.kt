@@ -9,6 +9,26 @@ data class Person(val firstName: String, val lastName: String, val age: Int)
 // Extension function
 fun Person.toDescriptiveString() = "$firstName is $age years old"
 
+fun printNameOfPerson(person: Person) {
+  // This will always be true, and the compiler knows it, so it warns you
+  if (person != null) {
+    println(person.firstName)
+  }
+}
+
+fun printNameOfNullablePerson(person: Person?) {
+  if (person != null) {
+    // Compiler smartcasts from Person? to Person as person will never be null now
+    println(person.firstName)
+  }
+}
+
+fun printNameOfNullablePerson2(person: Person?) {
+  // Safe call operator ?. avoids nullpointers
+  // Null coalescing operator aka Elvis operator ?: provides a value if person is null
+  println(person?.firstName ?: "person is null")
+}
+
 fun main() {
   val immutableVal = 10
   // immutableVal = 11 // compile error

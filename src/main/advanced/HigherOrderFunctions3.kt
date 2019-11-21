@@ -4,56 +4,52 @@ import main.intermediate.Person
 
 typealias Transform<A, B> = (A) -> B
 
-fun <A, B, C> transform(
-  f: Transform<A, B>,
-  g: Transform<B, C>
-): Transform<A, C> = { x ->
-  g(f(x))
+fun <A, B, C, D> combine(
+  f: (A) -> B,
+  g: (B) -> C,
+  h: (C) -> D
+): Transform<A, D> = { x ->
+  h(g(f(x)))
 }
 
-sealed class Request {
-  abstract val client: Person
+sealed class Student {
+  abstract val person: Person // A
 }
 
-data class InitialRequest(override val client: Person) : Request()
-data class ApprovedRequest(override val client: Person) : Request()
-data class FinishedRequest(override val client: Person) : Request() {
-  val finalMessage = "Request for ${client.name} completed!"
-}
+// B
+data class KindergartenStudent(override val person: Person) : Student()
 
-fun initialize(client: Person): InitialRequest {
-  println("initializing")
-  return InitialRequest(client)
-}
+// C
+data class PrimarySchoolStudent(override val person: Person) : Student()
 
-fun approve(input: InitialRequest): ApprovedRequest {
-  println("Approving the request")
-  return ApprovedRequest(input.client)
-}
+// D
+data class HighschoolStudent(override val person: Person) : Student()
 
-fun finish(input: ApprovedRequest): FinishedRequest {
-  println("Finishing up..")
-  return FinishedRequest(input.client)
-}
+fun startKindergarten(person: Person) = KindergartenStudent(person)
 
+fun graduateToMiddleSchool(student: KindergartenStudent) = PrimarySchoolStudent(student.person)
+
+fun graduateToHighSchool(student: PrimarySchoolStudent) = HighschoolStudent(student.person)
 
 fun main() {
-  val client = Person("Dave", 30)
+  val child = Person("Tom", 3)
+  // A -> B -> C -> D
+  combine(
+    ::startKindergarten,
+    ::graduateToMiddleSchool,
+    ::graduateToHighSchool
+  )(child)
+    .let {
+      println("${it.person.name} is now a highschool student")
+    }
 
-  // first initialize, then approve, then finish (in that order), and finally print the final message
-  // Person -> InitialRequest -> ApprovedRequest -> FinishedRequest
-  // Before the order is finished
-  val pre = transform(::initialize, ::approve)
-  // After the order is finished
-  val post = transform(
-    {it: FinishedRequest -> it.finalMessage},
-    {println(it)}
-  )
-
-  val pipeline = transform(pre, transform(::finish, post))
-  pipeline(client)
-
-  // Doing them in the wrong order causes a compile error!
-  // Why? Because transform expects ((A)->B, (B)->C) but gets ((A)->B, (C)->D)
-  // transform(::initialize, ::finish)
+  /* The following is a compile error because of type incompatibility
+  combine(
+    ::startKindergarten,
+    ::graduateToHighSchool,
+    ::graduateToMiddleSchool
+  )(child)
+    .let {
+      println("${it.person.name} is now a highschool student")
+    } */
 }
