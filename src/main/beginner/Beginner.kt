@@ -44,8 +44,26 @@ fun main() {
   val john = Person("John", "Johnson", 30)
   //val person4 = main.beginner.main.beginner.Person(null, 35) // compile error
 
+  // data classes have a human readable toString
+  println(dave)
+  // Person(firstName=Dave, lastName=Davidson, age=20)
+
   println(dave.toDescriptiveString())
   println(john.toDescriptiveString())
 
   Person("Dave", "Davidson", 20).toDescriptiveString()
+
+  // data classes have destructuring
+  listOf(dave, john).forEach { (firstName, _, age) ->
+    println("firstName: $firstName, age: $age, ignoring lastName")
+  }
+
+  // data classes treat equals differently
+  val equalsWithDataClass =
+    Person("A", "A", 10) == Person("A", "A", 10)
+  println(equalsWithDataClass) // true, since all values are equal
+
+  val equalsWithRegularClass =
+    SimplePerson("A", 10) == SimplePerson("A", 10)
+  println(equalsWithRegularClass) // false, since this is not the same object
 }
