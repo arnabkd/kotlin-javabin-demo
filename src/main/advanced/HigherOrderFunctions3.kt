@@ -4,6 +4,11 @@ import main.intermediate.Person
 
 typealias Transform<A, B> = (A) -> B
 
+/**
+ * This is a demonstration of how to set up a pipeline which ensures that we cannot skip any steps.
+ * Useful for instance when you want all requests to be filtered for say GeoIP, then auth checked
+ * and so on.
+ */
 fun <A, B, C, D> combine(
   f: (A) -> B,
   g: (B) -> C,

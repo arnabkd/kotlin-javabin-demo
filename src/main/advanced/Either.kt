@@ -13,13 +13,14 @@ fun dividePartial(x: Int, y: Int) = when (y) {
     else -> (x/y).right()
 }
 
+fun divideAndPrintResult(x: Int, y: Int) =
+  dividePartial(x, y).fold({
+    println("Error: ${it.message}")
+  }, {
+    println("Success: the result of the division is $it")
+  })
+
 fun main() {
-  dividePartial(10, 0).fold(
-    { println("Error: ${it.message}") },
-    { println(it) }
-  )
-  dividePartial(10, 2).fold(
-    { println("Error: ${it.message}") },
-    { println(it) }
-  )
+  divideAndPrintResult(10, 0)
+  divideAndPrintResult(4,2)
 }

@@ -16,6 +16,12 @@ fun main() {
   val overThirtyCanVote = canVote and overThirty
 
   val tom = Person("Tom", 20)
-  println(canVote(tom)) // true
-  println(overThirtyCanVote(tom)) // false
+  println("Can tom vote? ${canVote(tom)}") // true
+  println("Is tom over thirty AND can vote? ${overThirtyCanVote(tom)}") // false
+
+  // Lets say we only want to look at people over 40 and people under 20 for some reason
+  val underTwenty = { it: Person -> it.age < 20 }
+  val overForty = { it: Person -> it.age > 40 }
+  val isInAgerange = underTwenty or overForty
+  println("Is Tom in our age range? ${isInAgerange(tom)}")
 }
