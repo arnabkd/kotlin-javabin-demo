@@ -36,6 +36,7 @@ fun graduateToMiddleSchool(student: KindergartenStudent) = PrimarySchoolStudent(
 
 fun graduateToHighSchool(student: PrimarySchoolStudent) = HighschoolStudent(student.person)
 
+/*
 fun main() {
   val child = Person("Tom", 3)
   // A -> B -> C -> D
@@ -48,7 +49,8 @@ fun main() {
       println("${it.person.name} is now a highschool student")
     }
 
-  /* The following is a compile error because of type incompatibility
+  */
+/* The following is a compile error because of type incompatibility
   combine(
     ::startKindergarten,
     ::graduateToHighSchool,
@@ -56,5 +58,7 @@ fun main() {
   )(child)
     .let {
       println("${it.person.name} is now a highschool student")
-    } */
+    } *//*
+
 }
+*/

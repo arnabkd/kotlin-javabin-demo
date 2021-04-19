@@ -20,7 +20,7 @@ fun divideAndPrintResult(x: Int, y: Int) =
     println("Success: the result of the division is $it")
   })
 
-fun main() {
+/*fun main() {
   divideAndPrintResult(10, 0)
   divideAndPrintResult(4,2)
-}
+}*/

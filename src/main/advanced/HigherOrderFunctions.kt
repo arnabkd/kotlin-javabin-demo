@@ -10,7 +10,7 @@ infix fun PersonCheck.or(that: PersonCheck): PersonCheck = {
   this(it) or that(it)
 }
 
-fun main() {
+/*fun main() {
   val canVote = { it: Person -> it.age > 18 }
   val overThirty = { it: Person -> it.age >= 30 }
   val overThirtyCanVote = canVote and overThirty
@@ -24,4 +24,4 @@ fun main() {
   val overForty = { it: Person -> it.age > 40 }
   val isInAgerange = underTwenty or overForty
   println("Is Tom in our age range? ${isInAgerange(tom)}")
-}
+}*/

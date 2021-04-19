@@ -24,7 +24,7 @@ infix fun <A>Int.times(op: GenericOperation<A>) = op.repeat(this)
 fun double(x: Int) = x + x
 fun square(x: Int) = x * x
 
-fun main() {
+/*fun main() {
   val doubleAndSquare = compose(::double, ::square)
   println(doubleAndSquare(1))
 
@@ -37,4 +37,4 @@ fun main() {
 
   val doubleEightTimesAnotherWay = 8.times(::double)
   println(doubleEightTimesAnotherWay(1))
-}
+}*/
