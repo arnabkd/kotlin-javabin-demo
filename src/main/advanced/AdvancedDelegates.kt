@@ -2,7 +2,7 @@ package main.advanced
 
 import kotlin.properties.Delegates
 
-/*fun main() {
+fun main() {
 
   // Use for computed properties
   val lazyValue: String by lazy {
@@ -33,4 +33,4 @@ import kotlin.properties.Delegates
   name = "Tom" // unnamed -> Tom
   name = "Tom Tomson" // Tom -> Tom Tomson
 
-}*/
+}
